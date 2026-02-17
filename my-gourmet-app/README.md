@@ -1,73 +1,47 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# グルメ探しアプリ（React × TypeScript × ホットペッパーAPI）
 
-Currently, two official plugins are available:
+ホットペッパー グルメサーチAPIを使って飲食店を検索し、「行きたい」ボードに保存することも可能なWebアプリです。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 機能
+- キーワード検索／位置検索（緯度・経度／現在地）
+- 検索結果のカード表示（店名／ジャンル／住所／アクセス／写真）
+- 「行きたい」ボードへの追加／メモ保存／削除（LocalStorage）
 
-## React Compiler
+## 技術
+- React（Vite, TypeScript）
+- ホットペッパー グルメサーチAPI
+- LocalStorage
+- Vercel（デプロイ）
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## セットアップ
+```bash
+npm install
+cp .env.example .env
+# .env に正しいAPIキーを設定
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### ローカル
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+ローカルホストのAPIアクセスでは、ホットペッパーAPI側のCORSにより、許可されていません。
+そのため、Viteのdev-proxy＋簡易Nodeのサーバー再度経由でアクセスさせるようにしています。
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+※別ターミナルで同時に実行する
+```bash
+npm run server
 ```
+次が確認できればOK
+http://localhost:3001/api/gourmet?keyword=ラーメン&count=3
+
+
+### 構成
+my-gourmet-app/
+├─ server/
+│  ├─ index.ts          # ← バックエンド（Express）
+│  └─ .env              # ← サーバ側の環境変数
+├─ src/                 # ← フロント（React/Vite）
+│  ├─ ...tsx
+├─ package.json
+├─ tsconfig.json
+├─ vite.config.ts
