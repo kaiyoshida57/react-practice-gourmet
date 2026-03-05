@@ -353,6 +353,19 @@ textarea {
   gap: 10px;
 }
 
+.search-form .search-fields-row .input-with-icon {
+  flex: 1;
+}
+
+.search-form .input-with-icon .search-form-keyword-input {
+  padding-left: 38px;
+  width: 100%;
+}
+
+.search-form .search-form-field-flex {
+  flex: 1;
+}
+
 .read-the-docs {
   color: #888;
   margin-top: 30px;
@@ -426,6 +439,10 @@ textarea {
 @media (max-width: 650px) {
   #root {
     padding: 0.5rem;
+  }
+
+  .sub-title {
+    display: block;
   }
   .card,
   .search-form {

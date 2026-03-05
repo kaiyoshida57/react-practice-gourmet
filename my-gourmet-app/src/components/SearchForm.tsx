@@ -34,7 +34,7 @@ export default function SearchForm({ onSearch }: Props) {
   return (
     <form onSubmit={handleSubmit} className="search-form">
       <div className="search-fields-row">
-        <div className="input-with-icon" style={{ flex: 1 }}>
+        <div className="input-with-icon">
           <span className="search-bar-icon">
             <svg width="16" height="16" fill="none">
               <circle cx="7" cy="7" r="5.5" stroke="#aaa" strokeWidth="1.5" />
@@ -46,7 +46,7 @@ export default function SearchForm({ onSearch }: Props) {
             onChange={(e) => setKeyword(e.target.value)}
             placeholder="例：ラーメン 新橋"
             type="text"
-            style={{ paddingLeft: 38, width: '100%' }}
+            className="search-form-keyword-input"
           />
         </div>
       </div>
@@ -54,17 +54,17 @@ export default function SearchForm({ onSearch }: Props) {
         <input
           value={lat}
           onChange={(e) => setLat(e.target.value)}
-          placeholder="緯度（任意）"
-          type="text"
-          style={{ flex: 1 }}
-        />
+placeholder="緯度（任意）"
+            type="text"
+            className="search-form-field-flex"
+          />
         <input
           value={lng}
           onChange={(e) => setLng(e.target.value)}
           placeholder="経度（任意）"
-          type="text"
-          style={{ flex: 1 }}
-        />
+            type="text"
+            className="search-form-field-flex"
+          />
         <select value={range} onChange={(e) => setRange(e.target.value)}>
           <option value="1">300m</option>
           <option value="2">500m</option>

@@ -47,6 +47,7 @@ export default function App() {
     }
   }, []);
 
+  // 行きたいお店を保存
   const onAdd = useCallback(
     (item: WishItem) => {
       setWish((prev) => (prev.find((p) => p.id === item.id) ? prev : [...prev, { ...item, memo: '' }]));
@@ -54,6 +55,7 @@ export default function App() {
     [setWish],
   );
 
+  // 行きたいお店のメモを変更
   const onMemoChange = useCallback(
     (id: string, memo: string) => {
       setWish((prev) => prev.map((p) => (p.id === id ? { ...p, memo } : p)));
@@ -61,6 +63,7 @@ export default function App() {
     [setWish],
   );
 
+  // 行きたいお店を削除
   const onRemove = useCallback(
     (id: string) => {
       setWish((prev) => prev.filter((p) => p.id !== id));
