@@ -1,8 +1,11 @@
 export default function Footer() {
   return (
-    <footer>
-      <p style={{ fontSize: 12, textAlign: 'center', marginTop: '24px' }}>
-        Powered by <a href="http://webservice.recruit.co.jp/">ホットペッパーグルメ Webサービス</a>
+    <footer className="footer">
+      <p>
+        Powered by{' '}
+        <a href="http://webservice.recruit.co.jp/" target="_blank">
+          ホットペッパーグルメ Webサービス
+        </a>
       </p>
     </footer>
   );

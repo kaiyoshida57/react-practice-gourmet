@@ -6,6 +6,7 @@ import WishBoard from './components/WishBoard';
 import type { WishItem } from './types/hotpepper';
 import type { HotpepperShop } from './types/hotpepper';
 import Footer from './components/Footer';
+import UsageGuide from './components/UsageGuide';
 import './App.css';
 
 // ローカルストレージ用カスタムフック
@@ -75,6 +76,7 @@ export default function App() {
       <SearchForm onSearch={onSearch} />
       <ResultList shops={shops} onAdd={onAdd} />
       <WishBoard list={wish} onMemoChange={onMemoChange} onRemove={onRemove} />
+      <UsageGuide />
       <Footer />
     </div>
   );

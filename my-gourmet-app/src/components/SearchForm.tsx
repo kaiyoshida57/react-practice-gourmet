@@ -73,7 +73,7 @@ export default function SearchForm({ onSearch }: Props) {
           <option value="5">3000m</option>
         </select>
         <button type="button" onClick={useGeolocation}>
-          現在地
+          現在地取得
         </button>
       </div>
       <div className="search-actions-row">
