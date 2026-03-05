@@ -18,7 +18,7 @@
 ```bash
 npm install
 cp .env.example .env
-# .env に正しいAPIキーを設定
+# .env および server/.envに正しいAPIキーを設定
 npm run dev
 ```
 
