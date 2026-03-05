@@ -26,12 +26,11 @@ app.get('/api/gourmet', async (req, res) => {
     }
     const data = await r.json();
     return res.json(data?.results?.shop ?? []);
-  } catch (e: any) {
-    return res.status(500).json({ error: e?.message ?? 'proxy error' });
+  } catch (e: unknown) {
+    return res.status(500).json({ error: (e as Error).message ?? 'proxy error' });
   }
 });
 
- app.listen(3001, () => console.log('Hotpepper proxy on http://localhost:3001/api/gourmet'));
-
+app.listen(3001, () => console.log('Hotpepper proxy on http://localhost:3001/api/gourmet'));
 
 console.log('[DEBUG] HOTPEPPER_API_KEY =', process.env.HOTPEPPER_API_KEY ? 'LOADED' : 'MISSING');
