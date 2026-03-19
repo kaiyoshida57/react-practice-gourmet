@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import { searchGourmet } from './api/hotpepper';
 import SearchForm from './components/SearchForm';
 import ResultList from './components/ResultList';
@@ -34,14 +34,18 @@ function useLocalStorage<T>(key: string, initialValue: T) {
 export default function App() {
   const [shops, setShops] = useState<HotpepperShop[]>([]);
   const [wish, setWish] = useLocalStorage<WishItem[]>('wishShops', []);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
-  // 検索実行
-  // ※useCallbackでメモ化して子コンポーネントの再レンダリングを防止
+  // 検索実行（前回リクエストは AbortController でキャンセル）
   const onSearch = useCallback(async (params: Record<string, string>) => {
+    abortControllerRef.current?.abort();
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
     try {
-      const results = await searchGourmet(params);
+      const results = await searchGourmet(params, controller.signal);
       setShops(results);
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') return;
       const msg = e instanceof Error ? e.message : '未知のエラー';
       alert(`検索に失敗しました：${msg}`);
     }
